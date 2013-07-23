@@ -168,7 +168,7 @@ public class BuilderCodeGenerator implements IBuilderCodeGenerator {
 
     private static void createFieldDeclarations(PrintWriter pw, List<IField> fields) throws JavaModelException {
         for (IField field : fields) {
-            pw.println(getType(field) + " " + getName(field) + ";");
+            pw.println("private " + getType(field) + " " + getName(field) + ";");
         }
     }
 
