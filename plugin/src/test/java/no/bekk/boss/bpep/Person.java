@@ -2,6 +2,10 @@ package no.bekk.boss.bpep;
 
 public class Person {
     private String firstname;
-    private String lastname;
+
+    static class Subone {
+        private String another;
+
+    }
 
 }

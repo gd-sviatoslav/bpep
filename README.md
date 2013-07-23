@@ -1,3 +1,13 @@
+# Updates to the original plugin
+## Features
+1. Builders for inner classes 
+1. Turn on builder with constructor option by default
+1. Code formatting (removed tabs)
+## TODOes
+1. generate builders for inner classes in a parent scope
+1. support inner classes old ~Builder removal
+1. store generation settings as plugin settings
+
 # Builder Pattern Eclipse Plugin
 
 ## About

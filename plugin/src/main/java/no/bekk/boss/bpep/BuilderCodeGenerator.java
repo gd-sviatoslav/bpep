@@ -37,10 +37,10 @@ public class BuilderCodeGenerator implements IBuilderCodeGenerator {
         this.formatSource = builder.formatSource;
     }
 
-    public void generate(ICompilationUnit cu, List<IField> fields) {
+    public void generate(ICompilationUnit cu, IType enclosingType, List<IField> fields) {
 
         try {
-            removeOldClassConstructor(cu);
+            removeOldClassConstructor(cu);// todo now sl: add this functionality for nested classes
             removeOldBuilderClass(cu);
 
             IBuffer buffer = cu.getBuffer();
@@ -49,7 +49,7 @@ public class BuilderCodeGenerator implements IBuilderCodeGenerator {
             pw.println();
             pw.println("public static class Builder {");
 
-            IType clazz = cu.getTypes()[0];// todo now sl: what if want to generate builder for inner class?
+            IType clazz = enclosingType;
 
             int pos = clazz.getSourceRange().getOffset() + clazz.getSourceRange().getLength() - 1;
 

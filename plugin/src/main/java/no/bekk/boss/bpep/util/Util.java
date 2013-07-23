@@ -1,15 +1,28 @@
 package no.bekk.boss.bpep.util;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.jdt.core.Flags;
-import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 
 public final class Util {
+
+    public static void showError(String template, Object...params) {
+        IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        MessageDialog.openError(activeWindow.getShell(), "Error", MessageFormat.format(template, params));
+    }
+
+    public static void showMessage(String template, Object...params) {
+        IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        MessageDialog.openInformation(activeWindow.getShell(), "Message", MessageFormat.format(template, params));
+    }
 
     public static String getName(final IField field) {
         return field.getElementName();
@@ -26,19 +39,16 @@ public final class Util {
         return null;
     }
 
-    public static List<IField> findAllFields(final ICompilationUnit compilationUnit) {
+    public static List<IField> findAllFields(IType enclosingType) {
         List<IField> fields = new ArrayList<IField>();
         try {
-            IType clazz = compilationUnit.getTypes()[0];// todo now sl: what if want to generate builder for inner class?
-
-            for (IField field : clazz.getFields()) {
+            for (IField field : enclosingType.getFields()) {
                 int flags = field.getFlags();
                 boolean notStatic = !Flags.isStatic(flags);
                 if (notStatic) {
                     fields.add(field);
                 }
             }
-
         } catch (JavaModelException e) {
             e.printStackTrace();
         }

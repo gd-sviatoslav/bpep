@@ -1,13 +1,18 @@
 package no.bekk.boss.bpep.popup.actions;
 
+import no.bekk.boss.bpep.util.Util;
 import no.bekk.boss.bpep.view.CreateDialog;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.ITypeRoot;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.IWorkingCopyManager;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
@@ -28,11 +33,17 @@ public class GenerateBuilderAction extends Action implements IEditorActionDelega
         IWorkingCopyManager manager = JavaUI.getWorkingCopyManager();
         IEditorInput editorInput = editor.getEditorInput();
         try {
+            ITextSelection textSelection = (ITextSelection) editor.getSite().getSelectionProvider().getSelection();
+            int offset = textSelection.getOffset();
+            ITypeRoot root = (ITypeRoot) JavaUI.getEditorInputJavaElement(editorInput);
+            IJavaElement elt = root.getElementAt(offset);
+            IType enclosingType = (IType) elt.getAncestor(IJavaElement.TYPE);
+
             manager.connect(editorInput);
             ICompilationUnit workingCopy = manager.getWorkingCopy(editorInput);
 
             CreateDialog dialog = new CreateDialog(new Shell());
-            dialog.show(workingCopy);
+            dialog.show(workingCopy, enclosingType);
 
             synchronized (workingCopy) {
                 workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
@@ -42,6 +53,8 @@ public class GenerateBuilderAction extends Action implements IEditorActionDelega
             e.printStackTrace();
         } catch (CoreException e) {
             e.printStackTrace();
+        } catch (Throwable e) {
+            Util.showError("Error: {0}", e);
         } finally {
             manager.disconnect(editorInput);
         }

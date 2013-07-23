@@ -7,6 +7,7 @@ import no.bekk.boss.bpep.api.IBuilderCodeGenerator;
 import no.bekk.boss.bpep.util.Util;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -26,7 +27,7 @@ public class CreateDialog extends AbstractModalDialog {
         super(parent);
     }
 
-    public void show(final ICompilationUnit compilationUnit) throws JavaModelException {
+    public void show(final ICompilationUnit compilationUnit, final IType enclosingType) throws JavaModelException {
         final Shell shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.CENTER);
 
         shell.setText("Generate Builder Pattern Code");
@@ -40,7 +41,7 @@ public class CreateDialog extends AbstractModalDialog {
         fieldGroupLayoutData.verticalSpan = 2;
         fieldGroup.setLayoutData(fieldGroupLayoutData);
 
-        final List<Button> fieldButtons = createFieldSelectionCheckboxes(compilationUnit, fieldGroup);
+        final List<Button> fieldButtons = createFieldSelectionCheckboxes(enclosingType, fieldGroup);
         createSelectAllButton(shell, fieldButtons);
         createSelectNoneButton(shell, fieldButtons);
 
@@ -88,7 +89,7 @@ public class CreateDialog extends AbstractModalDialog {
                             .createCopyConstructor(createCopyConstructorButton.getSelection()) //
                             .formatSource(formatSourceButton.getSelection()) //
                             .build();
-                    generator.generate(compilationUnit, selectedFields);
+                    generator.generate(compilationUnit, enclosingType, selectedFields);
                     shell.dispose();
                 } else {
                     shell.dispose();
@@ -104,8 +105,8 @@ public class CreateDialog extends AbstractModalDialog {
         display(shell);
     }
 
-    private static List<Button> createFieldSelectionCheckboxes(final ICompilationUnit compilationUnit, Group fieldGroup) {
-        List<IField> fields = Util.findAllFields(compilationUnit);
+    private static List<Button> createFieldSelectionCheckboxes(IType enclosingType, Group fieldGroup) {
+        List<IField> fields = Util.findAllFields(enclosingType);
         final List<Button> fieldButtons = new ArrayList<Button>();
         for (IField field : fields) {
             Button button = new Button(fieldGroup, SWT.CHECK);
