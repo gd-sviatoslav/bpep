@@ -29,7 +29,7 @@ public class Resolver {
     public static List<IField> findAllFields(final ICompilationUnit compilationUnit) {
         List<IField> fields = new ArrayList<IField>();
         try {
-            IType clazz = compilationUnit.getTypes()[0];// todo now sl: what id want to generate builder for inner class?
+            IType clazz = compilationUnit.getTypes()[0];// todo now sl: what if want to generate builder for inner class?
 
             for (IField field : clazz.getFields()) {
                 int flags = field.getFlags();
