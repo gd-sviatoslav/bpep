@@ -14,8 +14,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.text
 Eclipse-LazyStart: false
 Export-Package: no.bekk.boss.bpep,
- no.bekk.boss.bpep.generator,
  no.bekk.boss.bpep.popup.actions,
- no.bekk.boss.bpep.regex,
+ no.bekk.boss.bpep.util,
  no.bekk.boss.bpep.view
 Bundle-ClassPath: .

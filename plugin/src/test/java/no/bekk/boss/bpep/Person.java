@@ -1,4 +1,4 @@
-package no.bekk.boss.bpep.test;
+package no.bekk.boss.bpep;
 
 public class Person {
     private String firstname;

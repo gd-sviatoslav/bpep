@@ -1,10 +1,11 @@
-package no.bekk.boss.bpep.generator;
+package no.bekk.boss.bpep;
 
-import static no.bekk.boss.bpep.resolver.Resolver.getName;
-import static no.bekk.boss.bpep.resolver.Resolver.getType;
+import static no.bekk.boss.bpep.util.Resolver.getName;
+import static no.bekk.boss.bpep.util.Resolver.getType;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
+import no.bekk.boss.bpep.api.IBuilderCodeGenerator;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IBuffer;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -22,7 +23,7 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.TextEdit;
 
-public class BuilderGenerator implements Generator {
+public class BuilderCodeGenerator implements IBuilderCodeGenerator {
 
     private static final String BUILDER_METHOD_PARAMETER_SUFFIX = "Param";
 
@@ -185,12 +186,12 @@ public class BuilderGenerator implements Generator {
             return this;
         }
 
-        public BuilderGenerator build() {
-            return new BuilderGenerator(this);
+        public BuilderCodeGenerator build() {
+            return new BuilderCodeGenerator(this);
         }
     }
 
-    BuilderGenerator(Builder builder) {
+    BuilderCodeGenerator(Builder builder) {
         this.createBuilderConstructor = builder.createBuilderConstructor;
         this.createCopyConstructor = builder.createCopyConstructor;
         this.formatSource = builder.formatSource;

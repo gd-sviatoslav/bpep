@@ -1,4 +1,4 @@
-package no.bekk.boss.bpep.resolver;
+package no.bekk.boss.bpep.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 
-public class Resolver {
+public final class Resolver {
 
     public static String getName(final IField field) {
         return field.getElementName();
@@ -44,4 +44,8 @@ public class Resolver {
         }
         return fields;
     }
+
+    private Resolver() {
+    }
+
 }

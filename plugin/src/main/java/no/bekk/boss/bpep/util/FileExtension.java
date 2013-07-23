@@ -1,4 +1,4 @@
-package no.bekk.boss.bpep.regex;
+package no.bekk.boss.bpep.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

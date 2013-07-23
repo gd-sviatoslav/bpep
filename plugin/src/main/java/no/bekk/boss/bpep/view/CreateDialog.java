@@ -2,9 +2,9 @@ package no.bekk.boss.bpep.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import no.bekk.boss.bpep.generator.BuilderGenerator;
-import no.bekk.boss.bpep.generator.Generator;
-import no.bekk.boss.bpep.resolver.Resolver;
+import no.bekk.boss.bpep.BuilderCodeGenerator;
+import no.bekk.boss.bpep.api.IBuilderCodeGenerator;
+import no.bekk.boss.bpep.util.Resolver;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.JavaModelException;
@@ -83,7 +83,7 @@ public class CreateDialog extends AbstractModalDialog {
                         }
                     }
 
-                    Generator generator = new BuilderGenerator.Builder() //
+                    IBuilderCodeGenerator generator = new BuilderCodeGenerator.Builder() //
                             .createBuilderConstructor(createBuilderConstructor.getSelection()) //
                             .createCopyConstructor(createCopyConstructorButton.getSelection()) //
                             .formatSource(formatSourceButton.getSelection()) //
