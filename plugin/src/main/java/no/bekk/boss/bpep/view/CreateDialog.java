@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import no.bekk.boss.bpep.BuilderCodeGenerator;
 import no.bekk.boss.bpep.api.IBuilderCodeGenerator;
-import no.bekk.boss.bpep.util.Resolver;
+import no.bekk.boss.bpep.util.Util;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.JavaModelException;
@@ -55,10 +55,10 @@ public class CreateDialog extends AbstractModalDialog {
         createCreateClassConstructorOption(optionGroup);
 
         final Button createBuilderConstructor = new Button(optionGroup, SWT.RADIO);
+        createBuilderConstructor.setSelection(true);
         createBuilderConstructor.setText("Create constructor in builder");
 
         final Button createCopyConstructorButton = new Button(optionGroup, SWT.CHECK);
-        createCopyConstructorButton.setSelection(true);
         createCopyConstructorButton.setText("Create copy constructor in builder");
 
         final Button formatSourceButton = new Button(optionGroup, SWT.CHECK);
@@ -105,11 +105,11 @@ public class CreateDialog extends AbstractModalDialog {
     }
 
     private static List<Button> createFieldSelectionCheckboxes(final ICompilationUnit compilationUnit, Group fieldGroup) {
-        List<IField> fields = Resolver.findAllFields(compilationUnit);
+        List<IField> fields = Util.findAllFields(compilationUnit);
         final List<Button> fieldButtons = new ArrayList<Button>();
         for (IField field : fields) {
             Button button = new Button(fieldGroup, SWT.CHECK);
-            button.setText(Resolver.getName(field) + "(" + Resolver.getType(field) + ")");
+            button.setText(Util.getName(field) + "(" + Util.getType(field) + ")");
             button.setData(field);
             button.setSelection(true);
             fieldButtons.add(button);
@@ -157,4 +157,5 @@ public class CreateDialog extends AbstractModalDialog {
             }
         }
     }
+
 }

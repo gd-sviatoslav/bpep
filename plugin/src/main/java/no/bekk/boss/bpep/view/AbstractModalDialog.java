@@ -31,9 +31,8 @@ public abstract class AbstractModalDialog extends Dialog {
         Rectangle parentSize = getParent().getBounds();
         Rectangle mySize = shell.getBounds();
 
-        int locationX, locationY;
-        locationX = (parentSize.width - mySize.width)/2+parentSize.x;
-        locationY = (parentSize.height - mySize.height)/2+parentSize.y;
+        int locationX = (parentSize.width - mySize.width)/2 + parentSize.x;
+        int locationY = (parentSize.height - mySize.height)/2 + parentSize.y;
 
         shell.setLocation(new Point(locationX, locationY));
     }

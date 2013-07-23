@@ -9,7 +9,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 
-public final class Resolver {
+public final class Util {
 
     public static String getName(final IField field) {
         return field.getElementName();
@@ -45,7 +45,7 @@ public final class Resolver {
         return fields;
     }
 
-    private Resolver() {
+    private Util() {
     }
 
 }

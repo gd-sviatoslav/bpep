@@ -1,7 +1,7 @@
 package no.bekk.boss.bpep;
 
-import static no.bekk.boss.bpep.util.Resolver.getName;
-import static no.bekk.boss.bpep.util.Resolver.getType;
+import static no.bekk.boss.bpep.util.Util.getName;
+import static no.bekk.boss.bpep.util.Util.getType;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
@@ -30,6 +30,12 @@ public class BuilderCodeGenerator implements IBuilderCodeGenerator {
     private final boolean createBuilderConstructor;
     private final boolean createCopyConstructor;
     private final boolean formatSource;
+
+    BuilderCodeGenerator(Builder builder) {
+        this.createBuilderConstructor = builder.createBuilderConstructor;
+        this.createCopyConstructor = builder.createCopyConstructor;
+        this.formatSource = builder.formatSource;
+    }
 
     public void generate(ICompilationUnit cu, List<IField> fields) {
 
@@ -191,9 +197,4 @@ public class BuilderCodeGenerator implements IBuilderCodeGenerator {
         }
     }
 
-    BuilderCodeGenerator(Builder builder) {
-        this.createBuilderConstructor = builder.createBuilderConstructor;
-        this.createCopyConstructor = builder.createCopyConstructor;
-        this.formatSource = builder.formatSource;
-    }
 }
