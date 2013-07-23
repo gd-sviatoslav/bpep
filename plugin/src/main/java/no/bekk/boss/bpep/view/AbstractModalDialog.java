@@ -20,9 +20,10 @@ public abstract class AbstractModalDialog extends Dialog {
         shell.pack();
         placeDialogInCenter(shell);
         shell.open();
-
         while (!shell.isDisposed()) {
-            if (!display.readAndDispatch()) display.sleep();
+            if (!display.readAndDispatch()){
+                display.sleep();
+            }
         }
     }
 

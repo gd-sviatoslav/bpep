@@ -1,7 +1,6 @@
 package no.bekk.boss.bpep.popup.actions;
 
 import no.bekk.boss.bpep.view.CreateDialog;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
@@ -20,48 +19,46 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
 public class GenerateBuilderAction extends Action implements IEditorActionDelegate, IWorkbenchWindowActionDelegate {
 
-	private IEditorPart editor;
+    private IEditorPart editor;
 
-	/**
-	 * @see IActionDelegate#run(IAction)
-	 */
-	public void run(IAction action) {
-		IWorkingCopyManager manager = JavaUI.getWorkingCopyManager();
-		IEditorInput editorInput = editor.getEditorInput();
-		try {
-			manager.connect(editorInput);
-			ICompilationUnit workingCopy = manager.getWorkingCopy(editorInput);
+    /**
+     * @see IActionDelegate#run(IAction)
+     */
+    public void run(IAction action) {
+        IWorkingCopyManager manager = JavaUI.getWorkingCopyManager();
+        IEditorInput editorInput = editor.getEditorInput();
+        try {
+            manager.connect(editorInput);
+            ICompilationUnit workingCopy = manager.getWorkingCopy(editorInput);
 
-			CreateDialog dialog = new CreateDialog(new Shell());
-			dialog.show(workingCopy);
+            CreateDialog dialog = new CreateDialog(new Shell());
+            dialog.show(workingCopy);
 
-			synchronized (workingCopy) {
-				workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
-			}
+            synchronized (workingCopy) {
+                workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
+            }
 
-		} catch (JavaModelException e) {
-			e.printStackTrace();
-		} catch (CoreException e) {
-			e.printStackTrace();
-		} finally {
-			manager.disconnect(editorInput);
-		}
+        } catch (JavaModelException e) {
+            e.printStackTrace();
+        } catch (CoreException e) {
+            e.printStackTrace();
+        } finally {
+            manager.disconnect(editorInput);
+        }
 
-	}
+    }
 
-	/**
-	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
-	 */
-	public void selectionChanged(IAction action, ISelection selection) {
-	}
+    /**
+     * @see IActionDelegate#selectionChanged(IAction, ISelection)
+     */
+    public void selectionChanged(IAction action, ISelection selection) {
+    }
 
-	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		this.editor = targetEditor;
-	}
+    public void setActiveEditor(IAction action, IEditorPart targetEditor) {
+        this.editor = targetEditor;
+    }
 
     public void dispose() {
-        // TODO Auto-generated method stub
-
     }
 
     public void init(IWorkbenchWindow window) {
