@@ -9,6 +9,10 @@
 1. generate builders for inner classes in a parent scope
 1. support inner classes old ~Builder removal
 1. store generation settings as plugin settings
+1. generate static method builder() which returnes Builder object for enclosing model class
+1. keep cursor position after builder code is added
+1. copy methods: from/to builder and from/to enclosing class
+1. generate build methods by super class fields (or hierarchy of builders)
 
 # Builder Pattern Eclipse Plugin
 
