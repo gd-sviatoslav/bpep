@@ -1,3 +1,7 @@
+
+## Due to too many changes and a whole concept re-framing the separate project has been started here:
+https://github.com/gd-sviatoslav/eclipse-model-builder-plugin
+
 ## Updates to the original plugin
 
 ### Features
@@ -6,12 +10,15 @@
 1. Code formatting (removed tabs)
 
 ### TODOes
+1. store generation settings as plugin settings
+1. keep cursor position after builder code is added
+
+1. generate static method builder() which returnes Builder object for enclosing model classes
+
 1. generate builders for inner classes in a parent scope
 1. support inner classes old ~Builder removal
-1. store generation settings as plugin settings
-1. generate static method builder() which returnes Builder object for enclosing model class
-1. keep cursor position after builder code is added
 1. copy methods: from/to builder and from/to enclosing class
+
 1. generate build methods by super class fields (or hierarchy of builders)
 
 # Builder Pattern Eclipse Plugin
